@@ -62,4 +62,6 @@ int main()
 
 	auto stop = std::chrono::system_clock::now();
 	std::cout << "elapsed: " << std::chrono::duration<double>(stop-start).count() << "s" << std::endl;
+
+	return 0;
 }

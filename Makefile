@@ -1,15 +1,17 @@
-CC=g++
-CFLAGS=-I.  -std=c++1z  -g -Wall -Werror -pthread
-DEPS = LowLockQueue.h ScopedAtomicAcquireRelease.h
-OBJ = main.o ScopedAtomicAcquireRelease.o 
+CXX:=g++
+CFLAGS:=-std=c++1z -Wall -Werror -pthread -I.
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+%.o: %.c ScopedAtomicAcquireRelease.h
+	$(CXX) -c -o $@ $< $(CFLAGS)
 
-main: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+lowlockqueue:  main.o ScopedAtomicAcquireRelease.o 
+	$(CXX) -o $@ $^ $(CFLAGS)
 
 .PHONY: clean
 clean:
-	rm -f *.o 
+	rm -f *.o
+
+.PHONY: test
+test:
+	./lowlockqueue
 
